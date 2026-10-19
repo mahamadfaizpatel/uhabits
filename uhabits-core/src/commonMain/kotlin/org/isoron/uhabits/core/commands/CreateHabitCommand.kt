@@ -18,6 +18,8 @@
  */
 package org.isoron.uhabits.core.commands
 
+import org.isoron.platform.time.getToday
+import org.isoron.uhabits.core.models.Entry
 import org.isoron.uhabits.core.models.Habit
 import org.isoron.uhabits.core.models.HabitList
 import org.isoron.uhabits.core.models.ModelFactory
@@ -31,6 +33,10 @@ data class CreateHabitCommand(
         val habit = modelFactory.buildHabit()
         habit.copyFrom(model)
         habitList.add(habit)
+        if (habit.isQuit) {
+            // Day 1 of the quit streak starts today.
+            habit.originalEntries.add(Entry(getToday(), Entry.YES_MANUAL))
+        }
         habit.recompute()
     }
 }

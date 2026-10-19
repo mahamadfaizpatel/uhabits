@@ -67,8 +67,11 @@ data class Entry(
         fun nextToggleValue(
             value: Int,
             isSkipEnabled: Boolean,
-            areQuestionMarksEnabled: Boolean
+            areQuestionMarksEnabled: Boolean,
+            isQuit: Boolean = false
         ): Int {
+            // Quit habits: one tap logs a slip, another tap undoes it.
+            if (isQuit) return if (value == NO) YES_MANUAL else NO
             return when (value) {
                 YES_AUTO -> YES_MANUAL
                 YES_MANUAL -> if (isSkipEnabled) SKIP else NO

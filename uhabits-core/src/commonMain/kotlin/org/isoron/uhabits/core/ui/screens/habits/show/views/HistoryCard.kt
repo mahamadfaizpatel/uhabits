@@ -112,7 +112,8 @@ class HistoryCardPresenter(
         val nextValue = Entry.nextToggleValue(
             value = entry.value,
             isSkipEnabled = preferences.isSkipEnabled,
-            areQuestionMarksEnabled = preferences.areQuestionMarksEnabled
+            areQuestionMarksEnabled = preferences.areQuestionMarksEnabled,
+            isQuit = habit.isQuit
         )
         commandRunner.run(
             CreateRepetitionCommand(

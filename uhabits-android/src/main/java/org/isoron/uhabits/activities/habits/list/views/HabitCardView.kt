@@ -281,6 +281,7 @@ class HabitCardView(
         }
         checkmarkPanel.apply {
             color = c
+            isQuit = h.isQuit
             visibility = when (h.isNumerical) {
                 true -> View.GONE
                 false -> View.VISIBLE

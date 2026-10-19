@@ -77,6 +77,8 @@ class CheckmarkButtonView(
             invalidate()
         }
 
+    var isQuit: Boolean = false
+
     var onToggle: (Int, String) -> Unit = { _, _ -> }
 
     var onEdit: () -> Unit = { }
@@ -92,7 +94,8 @@ class CheckmarkButtonView(
         value = Entry.nextToggleValue(
             value = value,
             isSkipEnabled = preferences.isSkipEnabled,
-            areQuestionMarksEnabled = preferences.areQuestionMarksEnabled
+            areQuestionMarksEnabled = preferences.areQuestionMarksEnabled,
+            isQuit = isQuit
         )
         onToggle(value, notes)
         performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)

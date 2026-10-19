@@ -53,6 +53,12 @@ data class Habit(
     val isNumerical: Boolean
         get() = type == HabitType.NUMERICAL
 
+    /**
+     * True for "quit a bad habit" habits. Every day counts as clean unless the user logs a slip.
+     */
+    val isQuit: Boolean
+        get() = type == HabitType.QUIT
+
     val uriString: String
         get() = "content://org.isoron.uhabits/habit/$id"
 
@@ -76,7 +82,8 @@ data class Habit(
         computedEntries.recomputeFrom(
             originalEntries = originalEntries,
             frequency = frequency,
-            isNumerical = isNumerical
+            isNumerical = isNumerical,
+            isQuit = isQuit
         )
 
         computedEntries.recomputeCompletion(

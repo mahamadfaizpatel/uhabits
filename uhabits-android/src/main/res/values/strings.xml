@@ -156,6 +156,10 @@
     <string name="year">Year</string>
     <string name="total">Total</string>
     <string name="yes_or_no">Yes or No</string>
+    <string name="quit_habit">Quit a bad habit</string>
+    <string name="quit_habit_example">e.g. No smoking, no sugar, no social media. Every day counts as clean until you log a slip.</string>
+    <string name="quit_habit_short_example">e.g. No smoking</string>
+    <string name="quit_habit_question_example">e.g. Did you stay smoke-free today?</string>
     <string name="every_x_days">Every %d days</string>
     <string name="every_x_weeks">Every %d weeks</string>
     <string name="score">Score</string>

@@ -94,7 +94,8 @@ open class EntryList {
     open fun recomputeFrom(
         originalEntries: EntryList,
         frequency: Frequency,
-        isNumerical: Boolean
+        isNumerical: Boolean,
+        isQuit: Boolean = false
     ) {
         clear()
         val original = originalEntries.getKnown()
@@ -106,6 +107,23 @@ open class EntryList {
             snapIntervalsTogether(intervals)
             val computed = buildEntriesFromInterval(original, intervals)
             computed.filter { it.value != UNKNOWN || it.notes.isNotEmpty() }.forEach { add(it) }
+            if (isQuit) markUnloggedDaysAsClean(original)
+        }
+    }
+
+    /**
+     * For "quit a bad habit" habits: every day from the oldest entry up to today is clean
+     * (YES_AUTO), unless the user logged a slip (NO) on that day.
+     */
+    private fun markUnloggedDaysAsClean(original: List<Entry>) {
+        val oldest = original.lastOrNull()?.date ?: return
+        var current = getToday()
+        while (current >= oldest) {
+            val existing = get(current)
+            if (existing.value == UNKNOWN) {
+                add(Entry(current, YES_AUTO, existing.notes))
+            }
+            current = current.minus(1)
         }
     }
 

@@ -142,6 +142,15 @@ class EditHabitActivity : AppCompatActivity() {
                 binding.targetOuterBox.visibility = View.GONE
                 binding.targetTypeOuterBox.visibility = View.GONE
             }
+            HabitType.QUIT -> {
+                binding.unitOuterBox.visibility = View.GONE
+                binding.targetOuterBox.visibility = View.GONE
+                binding.targetTypeOuterBox.visibility = View.GONE
+                // Quit habits are always tracked day by day.
+                binding.frequencyOuterBox.visibility = View.GONE
+                binding.nameInput.hint = getString(R.string.quit_habit_short_example)
+                binding.questionInput.hint = getString(R.string.quit_habit_question_example)
+            }
             HabitType.NUMERICAL -> {
                 binding.nameInput.hint = getString(R.string.measurable_short_example)
                 binding.questionInput.hint = getString(R.string.measurable_question_example)
@@ -280,7 +289,7 @@ class EditHabitActivity : AppCompatActivity() {
             habit.reminder = null
         }
 
-        habit.frequency = Frequency(freqNum, freqDen)
+        habit.frequency = if (habitType == HabitType.QUIT) Frequency.DAILY else Frequency(freqNum, freqDen)
         if (habitType == HabitType.NUMERICAL) {
             habit.targetValue = binding.targetInput.text.toString().toDouble()
             habit.targetType = targetType
